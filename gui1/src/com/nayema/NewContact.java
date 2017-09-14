@@ -7,7 +7,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-public class NewContact extends JFrame{
+public class NewContact extends JFrame {
+    private final static ArrayList<Contact> contactBook = new ArrayList<>();
     private JPanel newContactRootPanel;
     private JPanel westLabelPanel;
     private JPanel eastTextFieldPanel;
@@ -22,7 +23,6 @@ public class NewContact extends JFrame{
     private JTextField emailTextField;
     private JButton addContactButton;
     private JButton noOp;
-    private final static ArrayList<Contact> contactInfo = new ArrayList<>();
 
     public NewContact() {
         super("Contact Panel");
@@ -41,8 +41,19 @@ public class NewContact extends JFrame{
         addContactButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                contactBook.add(new Contact(givenNamesTextField.getText(), surnameTextField.getText(),
+                        mobileTextField.getText(), emailTextField.getText()));
+                JOptionPane.showMessageDialog(null, "Given name is " + contactBook.get(0).getGivenNames(),
+                        "Contact #1", JOptionPane.PLAIN_MESSAGE);
             }
         });
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("New Contact");
+        frame.setContentPane(new NewContact().newContactRootPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
