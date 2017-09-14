@@ -2,7 +2,7 @@ package com.nayema;
 
 import javax.swing.*;
 
-public class macoForm {
+public class MacoForm {
 
     private JPanel mainPanel;
     private JLabel clientNameLabel;

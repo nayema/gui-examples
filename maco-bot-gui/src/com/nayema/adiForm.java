@@ -2,7 +2,7 @@ package com.nayema;
 
 import javax.swing.*;
 
-public class adiForm {
+public class AdiForm {
     private JPanel mainPanel;
     private JButton calculateADIButton;
     private JTextField calculatedADITextField;
