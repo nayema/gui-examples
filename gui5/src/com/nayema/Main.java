@@ -3,7 +3,9 @@ package com.nayema;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Main {
 
@@ -28,18 +30,34 @@ public class Main {
     }
 
     class TableData extends AbstractTableModel {
-        String[][] allData = new String[3][3];
+        int[][] allData;
 
         public TableData() {
-            allData[0][0] = "1";
-            allData[0][1] = "2";
-            allData[0][2] = "3";
-            allData[1][0] = "4";
-            allData[1][1] = "5";
-            allData[1][2] = "6";
-            allData[2][0] = "7";
-            allData[2][1] = "8";
-            allData[2][2] = "9";
+            try {
+                loadFile();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+
+        private void loadFile() throws IOException {
+            FileReader file = new FileReader("data.txt");
+            BufferedReader reader = new BufferedReader(file);
+
+            String line;
+            int r = 0;
+            while ((line = reader.readLine()) != null) {
+                String[] fileLine = line.split("\\s+");
+                if (allData == null) {
+                    allData = new int[fileLine.length][fileLine.length];
+                }
+                for (int c = 0; c < fileLine.length; c++) {
+                    int iData = Integer.parseInt(fileLine[c]);
+                    allData[r][c] = iData;
+                }
+                r++;
+            }
+            reader.close();
         }
 
         @Override
